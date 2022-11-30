@@ -78,6 +78,8 @@ typings/
 # Next.js build output
 .next
 
+.next/
+
 # Nuxt.js build / generate output
 .nuxt
 dist
@@ -102,3 +104,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+#Ignorar JSON
+package.json
+package-lock.json
