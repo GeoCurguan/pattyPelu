@@ -2,6 +2,7 @@ body{
     margin: 0;
     font-family: trebuchet ms;
 }
+
 header{
     width: 100%;
     height: 100px;
@@ -106,7 +107,9 @@ main{
 .footerCont{
     width: 100%;
     height: 200px;
-    background-color: black;
+    background-color: rgb(140, 140, 140);
+    display: flex;
+    justify-content: center;
 }
 /**/
 /*Pagina de Agenda*/
@@ -134,4 +137,10 @@ main{
     height: 200px;
     background-color: burlywood;
 }
+.userList{
+    width: 1100px;
+    height: 500px;
+    background-color: chocolate;
+}
+/**/
 /**/

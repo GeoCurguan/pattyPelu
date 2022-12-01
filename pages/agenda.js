@@ -1,5 +1,6 @@
 import Head from "next/head";
 import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 const Agenda = () => {
     return(
@@ -21,6 +22,7 @@ const Agenda = () => {
                     <div class="userList"></div>
                 </div>
             </main>
+            <Footer />
         </div>
     );
 }
