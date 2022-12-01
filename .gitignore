@@ -108,3 +108,6 @@ dist
 #Ignorar JSON
 package.json
 package-lock.json
+
+#Ignore Image
+mockups_components.png

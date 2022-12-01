@@ -18,7 +18,9 @@ const Agenda = () => {
                         Calendario
                     </div>
                     <div class="dateSelectInfo">Resultado de busqueda</div>
-                    <div class="searchUser"></div>
+                    <div class="searchUser">
+
+                    </div>
                     <div class="userList"></div>
                 </div>
             </main>

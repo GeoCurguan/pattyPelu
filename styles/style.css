@@ -30,21 +30,26 @@ header{
     width: 1200px;
     display: flex;
     background-color: aqua;
-    margin-right: 10%;
 }
 ol{
     display: flex;
     flex-direction: row;
+    background-color: cornflowerblue;
 }
 li{
+    width: 300px;
     list-style-type: none;
     font-size: 28px;
     margin: auto;
-    margin-left: 30%;
+    background-color: deeppink;
 }
+/*li:hover{
+    background-color: #000;
+}*/
 a{
     text-decoration: none;
     color: #000;
+    margin: auto;
 }
 /*index*/
 main{
@@ -143,4 +148,5 @@ main{
     background-color: chocolate;
 }
 /**/
+
 /**/
