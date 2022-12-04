@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 const PriceInfo = (props) => {
     var isLeft = props.side;
     var img = props.img;
-    /* Probar con position absolute para colocar div sobre imagen */
     return(
         <div>
             {isLeft ? (
