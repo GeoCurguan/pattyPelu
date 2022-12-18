@@ -49,11 +49,17 @@ const Agenda = () => {
                         {isClient ? (<p>Nombre : {cliente.nombre} <br/> Fecha: {cliente.descripcion[0].fecha} <br /> Descripción: {cliente.descripcion[0].info}</p>) : (<p>Sin clientes por mostrar</p>)}
                     </div>
                     <div class="manageClients">
-                        <p>Administrar Clientes</p>
-                        <div>
-                            <div class="addClient"></div>
-                            <div class="editClient"></div>
-                        </div>
+                        {isClient ? (
+                                <>
+                                    <p>Administrar Cliente</p>
+                                    <div class="managClient">
+                                        <div class="editClient">
+                                            <textarea type="text" name="hola" placeholder='Agregar Descripcion'/>
+                                            <button>Agregar</button>
+                                        </div>
+                                    <div class="addClient"></div>
+                                    </div>
+                                </>) : (<></>)}
                     </div>
                 </div>
             </main>
