@@ -1,6 +1,6 @@
 const NavBar = () => {
     return(
-        <div class="navegacion">
+        <div className="navegacion">
             <ol>
                 <li><a href="/">Inicio</a></li>
                 <li><a href="/agenda">Agenda</a></li>

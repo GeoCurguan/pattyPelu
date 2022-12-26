@@ -10,12 +10,12 @@ const Index = () => {
                 <title>Patty Pelu</title>
             </Head>
             <header>
-                <div class="logo">miAgenda</div>
+                <div className="logo">miAgenda</div>
                 <NavBar></NavBar>
             </header>
             <main>
                 <div id="slide"></div>
-                <div class="info">
+                <div className="info">
                     <PriceInfo side={true} img={"1.png"}/>
                     <PriceInfo side={false} img={"1.png"}/>
                     <PriceInfo side={true} img={"1.png"}/>
