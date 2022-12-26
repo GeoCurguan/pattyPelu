@@ -1,5 +1,5 @@
 [
     {"id": "1", "nombre" : "Elsa Payo", "descripcion":[{"fecha": "18/12/2022","info": "Se Arreglo el pelo"}]},
-    {"id": "2", "nombre" : "Elvis tec", "descripcion":[{"fecha": "18/12/2022","info": "Se cortó el pelo"}]},
+    {"id": "2", "nombre" : "Elvis tec", "descripcion":[{"fecha": "18/12/2022","info": "Se cortó el pelo"},{"fecha": "25/12/2022","info": "Se cortó el pelo"}]},
     {"id": "3", "nombre" : "Jose", "descripcion":[{"fecha": "24/12/2022","info": "Se tintó el pelo"}]}
 ]

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
 import SearchContext from '../contexts/searchContext';
 
@@ -7,6 +7,9 @@ function CallJson(props) {
   const contexto = useContext(SearchContext);
   var allClients = props.allClients;
   const [findClient, isFindClient] = useState(props.isFindClient)
+  var inputClient = props.inputClient;
+  const inputRef = useRef(null);
+  const [inputFindClient, setInputFindClient] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -27,14 +30,19 @@ function CallJson(props) {
       console.log(contexto.key);
       if(contexto.key != ''){
         isFindClient(true);
-        //isFindClient = true;
       }
     }
   }, [contexto.key]);
 
+  const searchUser = () => {
+    console.log(inputRef.current.value)
+    inputRef.current.value = '';
+  }
+
   if (!data) {
     return <p>Cargando datos...</p>;
   }
+  /* REVISAR CONDICIONES PARA CHEQUEAR SI ESTÁN CORRECTAMENTES IMPLEMENTADAS */
   if(allClients){
     return (
       <div style={{backgroundColor: 'red',width: '200px'}}>
@@ -46,11 +54,24 @@ function CallJson(props) {
       </div>
     );
   }
-  else if(!allClients && findClient){
+  else if(!allClients && findClient && !inputClient){
+    var itemFilter = data.filter(item => item.id == contexto.key)[0];
     return(
-      <p>Usuario Encontrado</p>
+     <>
+      { <p>{itemFilter.nombre}</p>}
+      {
+          itemFilter.descripcion.map((desc,index) => (
+            <p key={index}>{desc.fecha}     {desc.info}</p>
+          ))
+      }
+      </>
     );
 
+  }
+  else if(inputClient){
+    return(
+    <><input type="text" name="cliente" placeholder='Buscar Cliente' ref={inputRef}/><button onClick={searchUser}>Buscar</button></>
+    );
   }
   else{
     return (

@@ -73,13 +73,11 @@ const Agenda = () => {
                         </div>
                     <SearchProvider>
                         <div className="searchUser">
-                            <input type="text" name="cliente" placeholder='Buscar Cliente' ref={inputRef}/><button>Buscar</button>
+                            <CallJson inputClient/>
                             <CallJson allClients/>
                         </div>
                         <div className="userList">
-                            {isClient ? (
-                                <p>Nombre : {cliente.nombre} <br/> Fecha: {cliente.descripcion[0].fecha} <br /> Descripción: {cliente.descripcion[0].info}</p>
-                                ) : (<CallJson isFindClient={false}/>)}
+                            <CallJson isFindClient={false}/>
                         </div>
                         <div className="manageClients">
                             {isClient ? (
