@@ -9,7 +9,6 @@ function CallJson(props) {
   const [findClient, isFindClient] = useState(props.isFindClient)
   var inputClient = props.inputClient;
   const inputRef = useRef(null);
-  const [inputFindClient, setInputFindClient] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -19,30 +18,30 @@ function CallJson(props) {
     fetchData();
   }, []);
 
+//Funcion que setea el contexto con el key
   function handleClick(paramkey){
     contexto.setKey(paramkey);
-    //console.log(contexto.key);
-    //console.log(paramkey);
   }
 
   useEffect(() => {
-    if(!allClients && !findClient){
-      console.log(contexto.key);
+    if(!allClients && !findClient && !inputClient){
+      //console.log(contexto.key);
       if(contexto.key != ''){
         isFindClient(true);
+        //console.log('Entro');
       }
     }
   }, [contexto.key]);
 
+//Funcion que setea el contexto con el nombre buscado
   const searchUser = () => {
-    console.log(inputRef.current.value)
+    contexto.setKey(inputRef.current.value);
     inputRef.current.value = '';
   }
 
   if (!data) {
     return <p>Cargando datos...</p>;
   }
-  /* REVISAR CONDICIONES PARA CHEQUEAR SI ESTÁN CORRECTAMENTES IMPLEMENTADAS */
   if(allClients){
     return (
       <div style={{backgroundColor: 'red',width: '200px'}}>
@@ -55,15 +54,25 @@ function CallJson(props) {
     );
   }
   else if(!allClients && findClient && !inputClient){
-    var itemFilter = data.filter(item => item.id == contexto.key)[0];
-    return(
-     <>
-      { <p>{itemFilter.nombre}</p>}
-      {
-          itemFilter.descripcion.map((desc,index) => (
-            <p key={index}>{desc.fecha}     {desc.info}</p>
-          ))
+    var itemFilter;
+    if(isNaN(contexto.key)){
+      itemFilter = data.filter(item => item.nombre == contexto.key)[0];
+      if(typeof itemFilter === 'undefined' ){
+        return(
+          <p>Usuario buscado no encontrado</p>
+        )
       }
+    }else{
+      itemFilter = data.filter(item => item.id == contexto.key)[0];
+    }
+    return(
+      <>
+        { <p>{itemFilter.nombre}</p>}
+        {
+            itemFilter.descripcion.map((desc,index) => (
+              <p key={index}>{desc.fecha}     {desc.info}</p>
+            ))
+        }
       </>
     );
 
