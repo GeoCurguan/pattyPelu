@@ -14,6 +14,7 @@ function CallJson(props) {
     async function fetchData() {
       const result = await axios.get('data/infoClientes.json');
       setData(result.data);
+      //Por ahora se carga cada vez que se llama al componente, se podria cargar una sola vez y guardarlo en el contexto
     }
     fetchData();
   }, []);
@@ -62,7 +63,11 @@ function CallJson(props) {
           <p>Usuario buscado no encontrado</p>
         )
       }
-    }else{
+    }
+    else if(contexto.key.length <= 0){
+      return(<p>No ha buscado ningún cliente</p>)
+    }
+    else{
       itemFilter = data.filter(item => item.id == contexto.key)[0];
     }
     return(

@@ -1,5 +1,4 @@
 import React, {useState, useRef, useContext} from 'react';
-import 'react-calendar/dist/Calendar.css';
 import Head from "next/head";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
@@ -18,7 +17,6 @@ function SearchProvider(props) {
     );
 }
 
-
 const Agenda = () => {
     const Calendar = dynamic(() => import("react-calendar"), {ssr: false});
     const [value, onChange] = useState(new Date());
@@ -28,19 +26,32 @@ const Agenda = () => {
     const textDesc = useRef(null);
     const date = new Date();
 
-    /*const searchUser = () => {
-        const client = infoClientes.clientes.find((client) => client.nombre === inputRef.current.value);
-        if(client != undefined){
-            console.log(client);
-            setCliente(client);
-            setIsClient(true);
+    /* Estados para el menu desplegable */
+    const [dropClientTab,setDropClientTab] = useState('noDropDownUser');
+    const dropDownUser = () => {
+        if(dropClientTab == 'noDropDownUser'){
+            setDropClientTab('dropDownUser dropEffect');
         }else{
-            setIsClient(false);
-            console.log("Usuario no encontrado")
+            setDropClientTab('noDropDownUser');
         }
-        inputRef.current.value = '';
-    }*/
-
+    }
+    const [dropCalendarTab,setDropCalendarTab] = useState('noDropDownCalendar');
+    const dropDownCalendar = () => {
+        if(dropCalendarTab == 'noDropDownCalendar'){
+            setDropCalendarTab('dropDownCalendar dropEffectCalendar');
+        }else{
+            setDropCalendarTab('noDropDownCalendar');
+        }
+    }
+    const [dropAddClientTab,setDropAddClientTab] = useState('noDropDownAddClient');
+    const dropDownAddClientTab = () => {
+        if(dropAddClientTab == 'noDropDownAddClient'){
+            setDropAddClientTab('dropEffectAddClient dropEffectAddClient');
+        }else{
+            setDropAddClientTab('noDropDownAddClient');
+        }
+    }
+    /*
     const addDesc = () => {
         if(textDesc.current.value != ''){
             setCliente(prevData => {
@@ -52,7 +63,7 @@ const Agenda = () => {
             console.log(textDesc.current.value);
             textDesc.current.value = '';
         }
-    }
+    }*/
     return(
         <div>
             <Head>
@@ -64,35 +75,57 @@ const Agenda = () => {
             </header>
             <main>
                 <div id="agendaCont">
-                    <div id="calendarCont">
-                        <Calendar className="calendar" onChange={onChange} value={value} />
-                    </div>
-                        <div className="dateSelectInfo">
-                            Resultado de busqueda: {value.getDate().toString()}/{(value.getMonth()+1).toString()}/{value.getUTCFullYear()}
-                            {/*Hoy: {date.getDate().toString()}/{(date.getMonth()+1).toString()}/{date.getUTCFullYear()}*/}
-                        </div>
                     <SearchProvider>
-                        <div className="searchUser">
-                            <CallJson inputClient/>
-                            <CallJson allClients/>
+                        <div className='dropDownUserBar' onClick={dropDownUser}>
+                        {/*<div className='dropDownUserBar' onClick={dropDownUser}>*/}
+                            <h1>Búsqueda de clientes y agregar detalles</h1>
+                            <p>Aquí podrá buscar ....</p>
                         </div>
-                        <div className="userList">
-                            <CallJson isFindClient={false}/>
-                        </div>
-                        <div className="manageClients">
-                            {isClient ? (
-                                    <>
-                                        <p>Administrar Cliente</p>
-                                        <div className="managClient">
-                                            <div className="editClient">
-                                                <textarea type="text" ref={textDesc} placeholder='Agregar Descripcion'/>
-                                                <button onClick={addDesc}>Agregar</button>
+                        <div className={dropClientTab}>
+                            <div className="searchUser">
+                                <CallJson inputClient/>
+                                <CallJson allClients/>
+                            </div>
+                            <div className="userList">
+                                <CallJson isFindClient={false}/>
+                            </div>
+                            <div className="manageClients">
+                                {isClient ? (
+                                        <>
+                                            <p>Administrar Cliente</p>
+                                            <div className="managClient">
+                                                <div className="editClient">
+                                                    <textarea type="text" ref={textDesc} placeholder='Agregar Descripcion'/>
+                                                    <button onClick={addDesc}>Agregar</button>
+                                                </div>
+                                            <div className="addClient"></div>
                                             </div>
-                                        <div className="addClient"></div>
-                                        </div>
-                                    </>) : (<></>)}
+                                        </>) : (<></>)}
+                            </div>
                         </div>
                     </SearchProvider>
+                    <div className='dropDownCalendarBar' onClick={dropDownCalendar}>
+                            <h1>Agendar Clientes</h1>
+                            <p>Aquí podrá agendar ....</p>
+                    </div>
+                    <div className={dropCalendarTab}>
+                        <div id="calendarCont">
+                            <Calendar className="calendar" onChange={onChange} value={value} />
+                        </div>
+                        <div className="dateSelectInfo">
+                                Resultado de busqueda: {value.getDate().toString()}/{(value.getMonth()+1).toString()}/{value.getUTCFullYear()}
+                                {/*Hoy: {date.getDate().toString()}/{(date.getMonth()+1).toString()}/{date.getUTCFullYear()}*/}
+                        </div>
+                    </div>
+                    <div className='dropDownAddClientBar' onClick={dropDownAddClientTab}>
+                            <h1>Agregar nuevos clientes</h1>
+                            <p>Aquí podrá agregar nuevos ....</p>
+                    </div>
+                    <div className={dropAddClientTab}>
+                        <div style={{backgroundColor: 'red',width: '1100px', height: '400px'}}>
+                        <p>Holaaaaaa</p>
+                        </div>
+                    </div>
                 </div>
             </main>
             <Footer />

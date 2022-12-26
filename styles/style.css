@@ -130,27 +130,87 @@ main{
 /*Pagina de Agenda*/
 #agendaCont{
     width: 80%;
-    height: 1800px;
+    min-height: 800px;
     background-color: black;
     align-items: center;
     margin: auto;
     flex-direction: column;
     display: flex;
 }
+
+.dropDownUserBar{
+    background-color: dodgerblue;
+    width: 1100px;
+    cursor: pointer;
+}
+.dropDownCalendarBar{
+    background-color: dodgerblue;
+    width: 1100px;
+    cursor: pointer;
+}
+.dropDownAddClientBar{
+    background-color: dodgerblue;
+    width: 1100px;
+    cursor: pointer;
+}
+.noDropDownUser{
+    display: flex;
+    width: 1100px;
+    height: 0px;
+    flex-direction: column;
+    transition: all .5s;
+}
+.noDropDownCalendar{
+    display: flex;
+    width: 1100px;
+    height: 0px;
+    overflow: hidden;
+    flex-direction: column;
+    transition: all .5s;
+}
+.noDropDownAddClient{
+    display: flex;
+    overflow: hidden;
+    width: 1100px;
+    height: 0px;
+    transition: height .5s;
+}
+/*Animación*/
+.dropEffect {
+    /*overflow: visible;*/
+    flex-direction: column;
+    display: flex;
+    height: 850px;
+    transition: height .5s;
+}
+.dropEffectCalendar{
+    display: flex;
+    flex-direction: column;
+    height: 650px;
+    transition: all .5s;
+}
+.dropEffectAddClient{
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    transition: all .5s;
+}
+
 #calendarCont{
-    width: 1200px;
+    width: 1100px;
     height: 300px;
+    overflow: hidden;
     background-color:aquamarine;
     display: flex;
     justify-content: center;
 }
 .dateSelectInfo{
-    width: 1000px;
+    width: 1100px;
     height: 350px;
     background-color: blueviolet;
 }
 .searchUser{
-    width: 1000px;
+    width: 1100px;
     height: 350px;
     background-color: burlywood;
     text-align: center;
@@ -162,7 +222,7 @@ main{
 }
 .userList{
     width: 1100px;
-    height: 500px;
+    height: 200px;
     background-color: chocolate;
 }
 .manageClients{
