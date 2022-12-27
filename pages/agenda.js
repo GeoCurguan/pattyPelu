@@ -90,7 +90,7 @@ const Agenda = () => {
                                 <CallJson isFindClient={false}/>
                             </div>
                             <div className="manageClients">
-                                {isClient ? (
+                                {/*isClient ? (
                                         <>
                                             <p>Administrar Cliente</p>
                                             <div className="managClient">
@@ -100,7 +100,7 @@ const Agenda = () => {
                                                 </div>
                                             <div className="addClient"></div>
                                             </div>
-                                        </>) : (<></>)}
+                                        </>) : (<></>)*/}
                             </div>
                         </div>
                     </SearchProvider>
