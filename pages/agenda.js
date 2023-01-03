@@ -1,10 +1,14 @@
-import React, {useState, useRef, useContext} from 'react';
+import React, {useState, useRef, useContext, useEffect} from 'react';
+import axios from 'axios';
 import Head from "next/head";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import Test from '../components/Test';
 import dynamic from "next/dynamic";
 import CallJson from '../components/CallJson';
 import SearchContext from '../contexts/searchContext'
+import JsonContext from '../contexts/jsonContext'
+
 
 //import infoClientes from "data/infoClientes.json"; //Ver otra forma de hacer import solo si la sesión está iniciada, quizás con otro componente
 
@@ -17,6 +21,25 @@ function SearchProvider(props) {
     );
 }
 
+function JsonContextProvider(props){
+    const [info, setInfo] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            const result = await axios.get('data/infoClientes.json');
+            setInfo(result.data);
+          //Por ahora se carga cada vez que se llama al componente, se podria cargar una sola vez y guardarlo en el contexto
+        }
+        fetchData();
+    }, []);
+
+    return(
+        <JsonContext.Provider value={{info, setInfo}}>
+            {props.children}
+        </JsonContext.Provider>
+    );
+}
+
 const Agenda = () => {
     const Calendar = dynamic(() => import("react-calendar"), {ssr: false});
     const [value, onChange] = useState(new Date());
@@ -25,6 +48,13 @@ const Agenda = () => {
     const inputRef = useRef(null);
     const textDesc = useRef(null);
     const date = new Date();
+
+    /* TEST DE CARGAR JSON EN AGENDA Y GUARDARLO EN CONTEXT */
+    //const jsonContexto = useContext(JsonContext);
+
+
+
+
 
     /* Estados para el menu desplegable */
     const [dropClientTab,setDropClientTab] = useState('noDropDownUser');
@@ -74,59 +104,63 @@ const Agenda = () => {
                 <NavBar></NavBar>
             </header>
             <main>
-                <div id="agendaCont">
-                    <SearchProvider>
-                        <div className='dropDownUserBar' onClick={dropDownUser}>
-                        {/*<div className='dropDownUserBar' onClick={dropDownUser}>*/}
-                            <h1>Búsqueda de clientes y agregar detalles</h1>
-                            <p>Aquí podrá buscar ....</p>
-                        </div>
-                        <div className={dropClientTab}>
-                            <div className="searchUser">
-                                <CallJson inputClient/>
-                                <CallJson allClients/>
+                <JsonContextProvider>
+                    <div id="agendaCont">
+                        <SearchProvider>
+                            <div className='dropDownUserBar' onClick={dropDownUser}>
+                            {/*<div className='dropDownUserBar' onClick={dropDownUser}>*/}
+                                <h1>Búsqueda de clientes y agregar detalles</h1>
+                                <p>Aquí podrá buscar ....</p>
                             </div>
-                            <div className="userList">
-                                <CallJson isFindClient={false}/>
-                            </div>
-                            <div className="manageClients">
-                                {/*isClient ? (
-                                        <>
-                                            <p>Administrar Cliente</p>
-                                            <div className="managClient">
-                                                <div className="editClient">
-                                                    <textarea type="text" ref={textDesc} placeholder='Agregar Descripcion'/>
-                                                    <button onClick={addDesc}>Agregar</button>
+                            <div className={dropClientTab}>
+                                <div className="searchUser">
+                                    <CallJson inputClient/>
+                                    <CallJson allClients/>
+                                </div>
+                                <div className="userList">
+                                    <CallJson isFindClient={false}/>
+                                </div>
+                                <div className="manageClients">
+                                    {/*isClient ? (
+                                            <>
+                                                <p>Administrar Cliente</p>
+                                                <div className="managClient">
+                                                    <div className="editClient">
+                                                        <textarea type="text" ref={textDesc} placeholder='Agregar Descripcion'/>
+                                                        <button onClick={addDesc}>Agregar</button>
+                                                    </div>
+                                                <div className="addClient"></div>
                                                 </div>
-                                            <div className="addClient"></div>
-                                            </div>
-                                        </>) : (<></>)*/}
+                                            </>) : (<></>)*/}
+                                </div>
+                            </div>
+                        </SearchProvider>
+                        <div className='dropDownCalendarBar' onClick={dropDownCalendar}>
+                                <h1>Agendar Clientes</h1>
+                                <p>Aquí podrá agendar ....</p>
+                        </div>
+                        <div className={dropCalendarTab}>
+                            <div id="calendarCont">
+                                <Calendar className="calendar" onChange={onChange} value={value} />
+                            </div>
+                            <div className="dateSelectInfo">
+                                    Resultado de busqueda: {value.getDate().toString()}/{(value.getMonth()+1).toString()}/{value.getUTCFullYear()}
+                                    {/*Hoy: {date.getDate().toString()}/{(date.getMonth()+1).toString()}/{date.getUTCFullYear()}*/}
                             </div>
                         </div>
-                    </SearchProvider>
-                    <div className='dropDownCalendarBar' onClick={dropDownCalendar}>
-                            <h1>Agendar Clientes</h1>
-                            <p>Aquí podrá agendar ....</p>
-                    </div>
-                    <div className={dropCalendarTab}>
-                        <div id="calendarCont">
-                            <Calendar className="calendar" onChange={onChange} value={value} />
+                        <div className='dropDownAddClientBar' onClick={dropDownAddClientTab}>
+                                <h1>Agregar nuevos clientes</h1>
+                                <p>Aquí podrá agregar nuevos ....</p>
                         </div>
-                        <div className="dateSelectInfo">
-                                Resultado de busqueda: {value.getDate().toString()}/{(value.getMonth()+1).toString()}/{value.getUTCFullYear()}
-                                {/*Hoy: {date.getDate().toString()}/{(date.getMonth()+1).toString()}/{date.getUTCFullYear()}*/}
+                        <div className={dropAddClientTab}>
+                            <div style={{backgroundColor: 'red',width: '1100px', height: '400px'}}>
+
+                                <Test></Test>
+
+                            </div>
                         </div>
                     </div>
-                    <div className='dropDownAddClientBar' onClick={dropDownAddClientTab}>
-                            <h1>Agregar nuevos clientes</h1>
-                            <p>Aquí podrá agregar nuevos ....</p>
-                    </div>
-                    <div className={dropAddClientTab}>
-                        <div style={{backgroundColor: 'red',width: '1100px', height: '400px'}}>
-                        <p>Holaaaaaa</p>
-                        </div>
-                    </div>
-                </div>
+                </JsonContextProvider>
             </main>
             <Footer />
         </div>

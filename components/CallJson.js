@@ -1,53 +1,44 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import axios from 'axios';
 import SearchContext from '../contexts/searchContext';
+import JsonContext from '../contexts/jsonContext';
 
 function CallJson(props) {
   const [data, setData] = useState(null);
   const contexto = useContext(SearchContext);
+  const jsonFile = useContext(JsonContext);
   var allClients = props.allClients;
   const [findClient, isFindClient] = useState(props.isFindClient)
   var inputClient = props.inputClient;
   const inputRef = useRef(null);
 
-  useEffect(() => {
-    async function fetchData() {
-      const result = await axios.get('data/infoClientes.json');
-      setData(result.data);
-      //Por ahora se carga cada vez que se llama al componente, se podria cargar una sola vez y guardarlo en el contexto
-    }
-    fetchData();
-  }, []);
-
-//Funcion que setea el contexto con el key
+//Funciones de busqueda de usuario
   function handleClick(paramkey){
     contexto.setKey(paramkey);
   }
 
-  useEffect(() => {
-    if(!allClients && !findClient && !inputClient){
-      //console.log(contexto.key);
-      if(contexto.key != ''){
-        isFindClient(true);
-        //console.log('Entro');
-      }
-    }
-  }, [contexto.key]);
-
-//Funcion que setea el contexto con el nombre buscado
+//Búsqueda por el input
   const searchUser = () => {
     contexto.setKey(inputRef.current.value);
     inputRef.current.value = '';
   }
 
-  if (!data) {
+  //Si lo seleccionado o buscado es aceptable, procede a su busquéda
+  useEffect(() => {
+    if(!allClients && !findClient && !inputClient){
+      if(contexto.key != ''){
+        isFindClient(true);
+      }
+    }
+  }, [contexto.key]);
+
+  if (!jsonFile.info) {
     return <p>Cargando datos...</p>;
   }
   if(allClients){
     return (
       <div style={{backgroundColor: 'red',width: '200px'}}>
         {
-              data.map((item) => (
+            jsonFile.info.map((item) => (
                 <p key={item.id} style={{backgroundColor: '#7ee2e5',cursor: 'pointer'}} onClick={() => handleClick(item.id)}>{item.nombre}  {/*item.descripcion[0].fecha*/}</p>
               ))
         }
@@ -57,7 +48,7 @@ function CallJson(props) {
   else if(!allClients && findClient && !inputClient){
     var itemFilter;
     if(isNaN(contexto.key)){
-      itemFilter = data.filter(item => item.nombre == contexto.key)[0];
+      itemFilter = jsonFile.info.filter(item => item.nombre == contexto.key)[0];
       if(typeof itemFilter === 'undefined' ){
         return(
           <p>Usuario buscado no encontrado</p>
@@ -68,7 +59,7 @@ function CallJson(props) {
       return(<p>No ha buscado ningún cliente</p>)
     }
     else{
-      itemFilter = data.filter(item => item.id == contexto.key)[0];
+      itemFilter = jsonFile.info.filter(item => item.id == contexto.key)[0];
     }
     return(
       <>
