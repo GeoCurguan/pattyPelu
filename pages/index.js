@@ -15,7 +15,7 @@ const Index = () => {
             </Head>
             <div id="contact-bar">
                 <p>Bienvenidos</p>
-                <p>Reserva su hora al +569 48775621</p>
+                <p>Reserve su hora al +569 48775621</p>
             </div>
             <header>
                 <NavBar></NavBar>
@@ -44,6 +44,29 @@ const Index = () => {
                     </div>
                 </div>
                 <div className="info">
+                    <div id="serviceList">
+                        <div id="servicesTitle">
+                            <p>Texto de ejemplo</p>
+                            <p>Descripcion de ejemplo </p>
+                        </div>
+                        <div id="somesServices">
+                            <div className="serviceCont">
+                                <img src="img8.jpg"></img>
+                                <p>SubTitulo</p>
+                                <p>Descripcion</p>
+                            </div>
+                            <div className="serviceCont">
+                                <img src="img8.jpg"></img>
+                                <p>SubTitulo</p>
+                                <p>Descripcion</p>
+                            </div>
+                            <div className="serviceCont">
+                                <img src="img8.jpg"></img>
+                                <p>SubTitulo</p>
+                                <p>Descripcion</p>
+                            </div>
+                        </div>
+                    </div>
                     <PriceInfo side={true} img={"1.png"}/>
                     <PriceInfo side={false} img={"1.png"}/>
                     <PriceInfo side={true} img={"1.png"}/>
