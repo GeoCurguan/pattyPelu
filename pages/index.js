@@ -2,6 +2,7 @@ import Head from "next/head";
 import NavBar from "../components/NavBar";
 import PriceInfo from "../components/PriceInfo";
 import Footer from "../components/Footer";
+import PriceTable from "../components/PriceTable";
 
 const Index = () => {
     function reservar(){
@@ -67,10 +68,16 @@ const Index = () => {
                             </div>
                         </div>
                     </div>
+                    {/*
                     <PriceInfo side={true} img={"1.png"}/>
                     <PriceInfo side={false} img={"1.png"}/>
-                    <PriceInfo side={true} img={"1.png"}/>
+                    <PriceInfo side={true} img={"1.png"}/>*/
+                    }
                 </div>
+                <div id="tableTitle">
+                    <p>Tabla de precios</p>
+                </div>
+                <PriceTable />
             </main>
             <Footer></Footer>
         </div>

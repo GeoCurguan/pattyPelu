@@ -4,6 +4,9 @@ const Footer = () => {
             <div className="contact">
                 <p>+569 48775621</p>
             </div>
+            <div>
+                aaaa
+            </div>
         </div>
     );
 }

@@ -1,0 +1,11 @@
+[
+    {"id":1,"name":"Corte de pelo Varon","price":6000},
+    {"id":2,"name":"Corte de pelo Dama","price":10000},
+    {"id":3,"name":"Corte de pelo Niño","price":10000},
+    {"id":4,"name":"Tintura","price":10000},
+    {"id":5,"name":"Visos","price":10000},
+    {"id":6,"name":"Reflejos","price":10000},
+    {"id":7,"name":"Balayage","price":10000},
+    {"id":8,"name":"Alisados Permanentes","price":10000},
+    {"id":9,"name":"Masajes Capilares","price":10000}
+]
